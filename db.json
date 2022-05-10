@@ -1,0 +1,32 @@
+{
+  "serie": {
+    "name": "Rick and Morty"
+  },
+  "users": [
+    {
+      "id": 1,
+      "user": "Rick",
+      "username": "ricksmith"
+    },
+    {
+      "id": 2,
+      "user": "Morty",
+      "username": "mortysanchez"
+    },
+    {
+      "id": 3,
+      "user": "Summer",
+      "username": "summersmith"
+    },
+    {
+      "id": 4,
+      "user": "Jerry",
+      "username": "jerrysmith"
+    },
+    {
+      "id": 5,
+      "user": "Beth",
+      "username": "bethsmith"
+    }
+  ]
+}

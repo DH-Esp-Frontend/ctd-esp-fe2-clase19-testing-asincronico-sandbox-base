@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 30%;
+  margin: 40px auto;
+}
+
+h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+li {
+  list-style: none;
+  margin: 10px 0px;
+  font-size: 18px;
+}
+
+.card {
+  background-color: rgb(239, 239, 239);
+  border-radius: 8px;
+  padding: 40px;
+  width: auto;
+}
+
+@media screen and (max-width: 1300px) {
+  body {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    width: 80%;
+  }
+}

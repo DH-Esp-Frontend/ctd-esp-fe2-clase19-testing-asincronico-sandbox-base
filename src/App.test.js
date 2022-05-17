@@ -1,18 +1,18 @@
 import axios from "axios";
-import { render, screen, waitFor } from "@testing-library/react";
-import App from "./App.js";
+import { render, screen } from "@testing-library/react";
+import App from "./App.tsx";
 
 jest.mock("axios");
 
 const fakeUsers = [
   {
     id: 1,
-    name: "Steve",
+    user: "Steve",
     username: "stevesantos",
   },
   {
     id: 2,
-    name: "Fernanda",
+    user: "Fernanda",
     username: "fernandasilva",
   },
 ];
@@ -26,21 +26,31 @@ describe("Teste assincrônico", () => {
     expect(screen.getByText("Usuários:")).toBeInTheDocument();
   });
 
-  test("Exibir uma lista de usuários", async () => {
+  test("Testando se o Carregando foi exibido", async () => {
     axios.get.mockResolvedValue({ data: fakeUsers });
 
     render(<App />);
 
-    const userList = await waitFor(() => screen.findByTestId("user-list"));
+    expect(screen.getByText("Carregando usuários...")).toBeInTheDocument();
+  });
+
+  test("Exibir o @ do usuário", async () => {
+    axios.get.mockResolvedValue({ data: fakeUsers });
+
+    render(<App />);
+
+    const userList = await screen.findByText("@stevesantos");
+
     expect(userList).toBeInTheDocument();
   });
 
-  test("Exibir cada usuário", async () => {
+  test("Exibir o nome do usuário", async () => {
     axios.get.mockResolvedValue({ data: fakeUsers });
 
     render(<App />);
 
-    const userList = await waitFor(() => screen.findAllByTestId("user-item"));
-    expect(userList).toHaveLength(2);
+    const userList = await screen.findByText("Steve");
+
+    expect(userList).toBeInTheDocument();
   });
 });

@@ -3,6 +3,12 @@ import axios from "axios";
 import { formatUserName } from "./utils.js";
 import "./style.css";
 
+interface IUsers {
+  id: number;
+  user: string;
+  username: string;
+}
+
 const App = () => {
   const [users, setUsers] = useState([]);
 
@@ -21,11 +27,10 @@ const App = () => {
     <>
       <h2>Usuários:</h2>
       {users.length ? (
-        <ul data-testid="user-list" className="card">
-          {users.map((user) => (
-            <li key={user.id} data-testid="user-item">
-              <span>{user.user}</span> (
-              <span>{formatUserName(user.username)}</span>)
+        <ul className="card">
+          {users.map(({ id, user, username }: IUsers) => (
+            <li key={id}>
+              <span>{user}</span> (<span>{formatUserName(username)}</span>)
             </li>
           ))}
         </ul>

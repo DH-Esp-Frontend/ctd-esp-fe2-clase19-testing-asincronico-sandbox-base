@@ -1,41 +1,40 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { formatUserName } from "./utils.js";
+import { formatUserName } from "./utils";
 import "./style.css";
+import {getUsers} from "./usuario.service";
 
-interface IUsers {
+interface UserType {
   id: number;
   user: string;
   username: string;
 }
 
 const App = () => {
-  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
-    const getUsers = async () => {
-      const response = await axios.get(
-        "https://my-json-server.typicode.com/PedagogiaDHBrasil/ctd-esp-front2-aula19/users"
-      );
+    setLoading(true)
+    getUsers().then(data => {
+      setLoading(false)
+      setUsers(data)
+    });
+  }, [getUsers]);
 
-      setUsers(response.data);
-    };
-    getUsers();
-  }, []);
 
   return (
     <>
-      <h2>Usuários:</h2>
-      {users.length ? (
+      <h2>Usuarios:</h2>
+      {loading && <div>Cargando usuarios...</div>}
+      {!loading && (
         <ul className="card">
-          {users.map(({ id, user, username }: IUsers) => (
+          {users.map(({ id, user, username }: UserType) => (
             <li key={id}>
               <span>{user}</span> (<span>{formatUserName(username)}</span>)
             </li>
           ))}
         </ul>
-      ) : (
-        <div>Carregando usuários...</div>
       )}
     </>
   );
